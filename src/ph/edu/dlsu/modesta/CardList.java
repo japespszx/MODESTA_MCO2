@@ -36,6 +36,30 @@ public class CardList {
         return cards.remove(x);
     }
 
+    public Card drawCardAndReturn () {
+        Random random = new Random();
+
+        int x = random.nextInt(size());
+
+        return getCard(x);
+    }
+
+    public int getTotal () {
+
+        int total = 0;
+
+        for (int i = 0; i < size(); i++) {
+            if (getCardNumber(i) > 10) {
+                total += 10;
+            } else {
+                total += getCardNumber(i);
+            }
+        }
+
+        return total;
+
+    }
+
     public int getCardNumber (int index) {
         return cards.get(index).getNumber();
     }
@@ -52,6 +76,8 @@ public class CardList {
         for (int i = 0; i < size(); i++) {
             System.out.println(i + " : " + getCardSuit(i) + ", " + getCardNumber(i));
         }
+
+        System.out.println("Total: " + getTotal());
     }
 
     public void resetCards () {
