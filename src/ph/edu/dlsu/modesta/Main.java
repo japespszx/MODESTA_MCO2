@@ -4,28 +4,26 @@ import static ph.edu.dlsu.modesta.DiscreteProbabilityDistribution.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-//        CardList deck = new CardList();
-//        CardList hand;
-//
-//        // START TRIAL
-//        for (int i = 0; i < 10000; i++) {
-//
-//            System.out.println("===== TRIAL " + (i+1) + " =====");
-//
-//            hand = new CardList();
-//            deck.resetCards();
-//
-//            hand.addCard(deck.drawCard());
-//            hand.addCard(deck.drawCard());
-//            hand.addCard(deck.drawCard());
-//            hand.addCard(deck.drawCard());
-//            hand.addCard(deck.drawCard());
-//
-//            hand.print();
-//        }
+		CardList deck = new CardList();
+		CardList hand;
 
-	    System.out.println(dbinom(5,6,.2));
-    }
+		// START TRIAL
+		for (int i = 0; i < 10000; i++) {
+
+			System.out.println("===== TRIAL " + (i + 1) + " =====");
+
+			hand = new CardList();
+			deck.resetCards();
+
+			hand.addCard(deck.drawCard());
+			hand.addCard(deck.drawCard());
+			hand.addCard(deck.drawCard());
+			hand.addCard(deck.drawCard());
+			hand.addCard(deck.drawCard());
+
+			hand.print();
+		}
+	}
 }
