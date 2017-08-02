@@ -1,10 +1,12 @@
 package ph.edu.dlsu.modesta;
 
+import java.math.BigDecimal;
+
 public class DiscreteProbabilityDistribution {
 
-	private int currentN;
+	static private int currentN;
 
-	public int factorial(int n) {
+	static public int factorial(int n) {
 		if (n < 0) {
 			try {
 				throw new Exception("n < 0");
@@ -39,7 +41,7 @@ public class DiscreteProbabilityDistribution {
 		return r << shift;
 	}
 
-	private int product(int n) {
+	static private int product(int n) {
 		int m = n / 2;
 		if (m == 0)
 			return currentN += 2;
@@ -49,22 +51,25 @@ public class DiscreteProbabilityDistribution {
 			return product(n - m) * product(m);
 	}
 
-	public int permutation(int n, int r) {
+	static public int permutation(int n, int r) {
 		return factorial(n) / factorial(n - r);
 	}
 
-	public int combination(int n, int r) {
+	static public int combination(int n, int r) {
 		return factorial(n) / (factorial(r) * factorial(n - r));
 	}
 
-	public double dbinom(int x, int n, double p) {
-		return combination(n, x) * Math.pow(p, x) * Math.pow(1 - p, n - x);
+	static public BigDecimal dbinom(int x, int n, double p) {
+		BigDecimal temp = BigDecimal.valueOf(p);
+		return new BigDecimal(combination(n, x)).
+				multiply(temp.pow(x)).
+				multiply(BigDecimal.ONE.subtract(temp).pow(n - x));
 	}
 
-	public double pbinom(int x, int n, double p) {
-		double val = 0;
+	static public BigDecimal pbinom(int x, int n, double p) {
+		BigDecimal val = new BigDecimal(0);
 		for (int i = 0; i <= x; i++) {
-			val += dbinom(x, n, p);
+			val = val.add(dbinom(i, n, p));
 		}
 		return val;
 	}
