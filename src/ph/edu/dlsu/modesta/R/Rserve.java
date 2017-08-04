@@ -1,4 +1,4 @@
-package ph.edu.dlsu.modesta;
+package ph.edu.dlsu.modesta.R;
 
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;

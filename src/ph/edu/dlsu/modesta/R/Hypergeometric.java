@@ -1,17 +1,17 @@
-package ph.edu.dlsu.modesta;
+package ph.edu.dlsu.modesta.R;
 
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-public class Poisson {
+public class Hypergeometric {
 	private static RConnection connection = Rserve.getConnection();
 
-	public static double dpois(int x, double lambda) {
+	public static double dhyper(int x, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("dpois(" + x + "," + lambda + "," + ")").
+					eval("dhyper(" + x + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -21,11 +21,11 @@ public class Poisson {
 		return val;
 	}
 
-	public static double ppois(int q, double lambda) {
+	public static double phyper(int q, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("ppois(" + q + "," + lambda + ")").
+					eval("phyper(" + q + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -35,11 +35,11 @@ public class Poisson {
 		return val;
 	}
 
-	public static double qpois(double p, double lambda) {
+	public static double qhyper(double p, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("qpois(" + p + "," + lambda + ")").
+					eval("qhyper(" + p + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -49,11 +49,11 @@ public class Poisson {
 		return val;
 	}
 
-	public static double[] rpois(int n, double lambda) {
+	public static double[] rhyper(int nn, int m, int n, int k) {
 		double[] val = new double[0];
 		try {
 			val = connection.
-					eval("rpois(" + n + "," + lambda + ")").
+					eval("rhyper(" + nn + "," + m + "," + n + "," + k + ")").
 					asDoubles();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {

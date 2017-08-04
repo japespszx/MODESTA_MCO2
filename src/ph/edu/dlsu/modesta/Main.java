@@ -4,6 +4,8 @@ import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
+import ph.edu.dlsu.modesta.R.*;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -35,7 +37,7 @@ public class Main {
 			String vector = "c(1,2,3,4)";
 			connection.eval("meanVal=mean(" + vector + ")");
 			double mean = connection.eval("meanVal").asDouble();
-			System.out.println(Binomial.dbinom(4, 5, .5));
+			System.out.println(mean);
 		} catch (RserveException | REXPMismatchException e) {
 			e.printStackTrace();
 		} finally {

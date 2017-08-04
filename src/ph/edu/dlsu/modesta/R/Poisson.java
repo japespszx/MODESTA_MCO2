@@ -1,17 +1,17 @@
-package ph.edu.dlsu.modesta;
+package ph.edu.dlsu.modesta.R;
 
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-public class Hypergeometric {
+public class Poisson {
 	private static RConnection connection = Rserve.getConnection();
 
-	public static double dhyper(int x, int m, int n, int k) {
+	public static double dpois(int x, double lambda) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("dhyper(" + x + "," + m + "," + n + "," + k + ")").
+					eval("dpois(" + x + "," + lambda + "," + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -21,11 +21,11 @@ public class Hypergeometric {
 		return val;
 	}
 
-	public static double phyper(int q, int m, int n, int k) {
+	public static double ppois(int q, double lambda) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("phyper(" + q + "," + m + "," + n + "," + k + ")").
+					eval("ppois(" + q + "," + lambda + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -35,11 +35,11 @@ public class Hypergeometric {
 		return val;
 	}
 
-	public static double qhyper(double p, int m, int n, int k) {
+	public static double qpois(double p, double lambda) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("qhyper(" + p + "," + m + "," + n + "," + k + ")").
+					eval("qpois(" + p + "," + lambda + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -49,11 +49,11 @@ public class Hypergeometric {
 		return val;
 	}
 
-	public static double[] rhyper(int nn, int m, int n, int k) {
+	public static double[] rpois(int n, double lambda) {
 		double[] val = new double[0];
 		try {
 			val = connection.
-					eval("rhyper(" + nn + "," + m + "," + n + "," + k + ")").
+					eval("rpois(" + n + "," + lambda + ")").
 					asDoubles();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {

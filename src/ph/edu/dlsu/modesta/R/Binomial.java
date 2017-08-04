@@ -1,17 +1,17 @@
-package ph.edu.dlsu.modesta;
+package ph.edu.dlsu.modesta.R;
 
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-public class NBinomial {
+public class Binomial {
 	private static RConnection connection = Rserve.getConnection();
 
-	public static double dnbinom(int x, int size, double prob) {
+	public static double dbinom(int x, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("dnbinom(" + x + "," + size + "," + prob + ")").
+					eval("dbinom(" + x + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -21,11 +21,11 @@ public class NBinomial {
 		return val;
 	}
 
-	public static double pnbinom(int q, int size, double prob) {
+	public static double pbinom(int q, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("pnbinom(" + q + "," + size + "," + prob + ")").
+					eval("pbinom(" + q + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -35,11 +35,11 @@ public class NBinomial {
 		return val;
 	}
 
-	public static double qnbinom(double p, int size, double prob) {
+	public static double qbinom(double p, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("qnbinom(" + p + "," + size + "," + prob + ")").
+					eval("qbinom(" + p + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -49,11 +49,11 @@ public class NBinomial {
 		return val;
 	}
 
-	public static double[] rnbinom(int n, int size, double prob) {
+	public static double[] rbinom(int n, int size, double prob) {
 		double[] val = new double[0];
 		try {
 			val = connection.
-					eval("rnbinom(" + n + "," + size + "," + prob + ")").
+					eval("rbinom(" + n + "," + size + "," + prob + ")").
 					asDoubles();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
