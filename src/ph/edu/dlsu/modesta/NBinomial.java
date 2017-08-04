@@ -4,14 +4,14 @@ import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-public class Binomial {
+public class NBinomial {
 	private static RConnection connection = Rserve.getConnection();
 
-	public static double dbinom(int x, int size, double prob) {
+	public static double dnbinom(int x, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("dbinom(" + x + "," + size + "," + prob + ")").
+					eval("dnbinom(" + x + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -21,11 +21,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double pbinom(int q, int size, double prob) {
+	public static double pnbinom(int q, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("pbinom(" + q + "," + size + "," + prob + ")").
+					eval("pnbinom(" + q + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -35,11 +35,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double qbinom(double p, int size, double prob) {
+	public static double qnbinom(double p, int size, double prob) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("qbinom(" + p + "," + size + "," + prob + ")").
+					eval("qnbinom(" + p + "," + size + "," + prob + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -49,11 +49,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double[] rbinom(int n, int size, double prob) {
+	public static double[] rnbinom(int n, int size, double prob) {
 		double[] val = new double[0];
 		try {
 			val = connection.
-					eval("rbinom(" + n + "," + size + "," + prob + ")").
+					eval("rnbinom(" + n + "," + size + "," + prob + ")").
 					asDoubles();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {

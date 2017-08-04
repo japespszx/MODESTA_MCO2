@@ -4,14 +4,14 @@ import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 
-public class Binomial {
+public class Hypergeometric {
 	private static RConnection connection = Rserve.getConnection();
 
-	public static double dbinom(int x, int size, double prob) {
+	public static double dhyper(int x, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("dbinom(" + x + "," + size + "," + prob + ")").
+					eval("dhyper(" + x + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -21,11 +21,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double pbinom(int q, int size, double prob) {
+	public static double phyper(int q, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("pbinom(" + q + "," + size + "," + prob + ")").
+					eval("phyper(" + q + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -35,11 +35,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double qbinom(double p, int size, double prob) {
+	public static double qhyper(double p, int m, int n, int k) {
 		double val = 0;
 		try {
 			val = connection.
-					eval("qbinom(" + p + "," + size + "," + prob + ")").
+					eval("qhyper(" + p + "," + m + "," + n + "," + k + ")").
 					asDouble();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
@@ -49,11 +49,11 @@ public class Binomial {
 		return val;
 	}
 
-	public static double[] rbinom(int n, int size, double prob) {
+	public static double[] rhyper(int nn, int m, int n, int k) {
 		double[] val = new double[0];
 		try {
 			val = connection.
-					eval("rbinom(" + n + "," + size + "," + prob + ")").
+					eval("rhyper(" + nn + "," + m + "," + n + "," + k + ")").
 					asDoubles();
 			System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
