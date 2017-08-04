@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="JRI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/REngine.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Rserve.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
