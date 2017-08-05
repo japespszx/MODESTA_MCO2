@@ -49,11 +49,7 @@ public class CardList {
         int total = 0;
 
         for (int i = 0; i < size(); i++) {
-            if (getCardNumber(i) > 10) {
-                total += 10;
-            } else {
-                total += getCardNumber(i);
-            }
+            total += getCardNumber(i);
         }
 
         return total;
