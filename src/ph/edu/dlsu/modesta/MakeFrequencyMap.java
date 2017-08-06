@@ -17,7 +17,7 @@ class MakeFrequencyMap {
 			values = new ArrayList<>();
 			values.add("1");
 			values.add(Integer.toString(i));
-			values.add("1");
+			values.add("4");
 			CSVUtils.writeLine(w, values);
 		}
 
@@ -26,8 +26,13 @@ class MakeFrequencyMap {
 		for (int i = 1; i < 14; i++) {
 			for (int j = i; j < 14; j++) {
 				for (int k = 1; k < 27; k++) {
-					if (i + j == k)
-						possible[k]++;
+					if (i + j == k) {
+						if (i == j) {
+							possible[k] += 3;
+						} else {
+							possible[k] += 5;
+						}
+					}
 				}
 			}
 		}
