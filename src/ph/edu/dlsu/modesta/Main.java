@@ -16,7 +16,7 @@ public class Main {
 		RConnection connection = Rserve.getConnection();
 
 		CardList deck = new CardList();
-		
+
 		CardDrawView cardDrawView = new CardDrawView(deck);
 
 		try {
