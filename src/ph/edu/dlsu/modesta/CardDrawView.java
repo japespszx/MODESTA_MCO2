@@ -42,7 +42,8 @@ public class CardDrawView {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int totalTally = 0;
+                int totalTally_with = 0;
+                int totalTally_without = 0;
 
                 for (int i = 0; i < Integer.parseInt(iterations.getText()); i++) {
 
@@ -55,13 +56,27 @@ public class CardDrawView {
                         hand.addCard(deck.drawCard());
                     }
 
+                    System.out.println("===== Without replacement =====");
                     hand.print();
 
                     if (Integer.parseInt(targetTotal.getText()) == hand.getTotal())
-                        totalTally++;
+                        totalTally_without++;
+
+                    hand = new CardList();
+
+                    for (int j = 0; j < (Integer.parseInt((String) handSize.getSelectedItem())); j++ ) {
+                        hand.addCard(deck.drawCardAndReturn());
+                    }
+
+                    if (Integer.parseInt(targetTotal.getText()) == hand.getTotal())
+                        totalTally_with++;
+
+                    System.out.println("===== With replacement =====");
+                    hand.print();
                 }
 
-                System.out.println("Target total obtained: " + totalTally);
+                System.out.println("Target total obtained with replacement: " + totalTally_with);
+                System.out.println("Target total obtained without replacement: " + totalTally_without);
             }
         });
     }
