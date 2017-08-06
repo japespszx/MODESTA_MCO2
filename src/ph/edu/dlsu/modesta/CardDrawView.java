@@ -69,6 +69,12 @@ public class CardDrawView {
 
 		addListenerToDrawBtn(e -> {
 
+			card1.setIcon(optimizeSize(image));
+			card2.setIcon(optimizeSize(image));
+			card3.setIcon(optimizeSize(image));
+			card4.setIcon(optimizeSize(image));
+			card5.setIcon(optimizeSize(image));
+
 			String wReplace_Log = "wReplace_log.csv";
 			String woReplace_Log = "withoutReplace_log.csv";
 			FileWriter writer_w = null;
