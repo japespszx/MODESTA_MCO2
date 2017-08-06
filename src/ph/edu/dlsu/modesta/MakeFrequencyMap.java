@@ -109,7 +109,7 @@ class MakeFrequencyMap {
 		draw2 = new int[27];
 		draw3 = new int[40];
 		draw4 = new int[53];
-		draw5 = new int[65];
+		draw5 = new int[66];
 
 		w = new FileWriter("FrequencyMap2.csv");
 		writeToCSV("drawn", "total", "possible", w);

@@ -14,15 +14,15 @@ import java.util.ArrayList;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		//initialize Rserve connection
 		RConnection connection = Rserve.getConnection();
 
 		CardList deck = new CardList();
 
-		CardDrawView cardDrawView = new CardDrawView(deck);
+//		CardDrawView cardDrawView = new CardDrawView(deck);
 
-		runTrials("withR", "withoutR", deck, 1, 1000, 13);
+		runTrials("withR", "withoutR", deck, 5, 1000, 64);
 //		try {
 //			//Sample code
 //			String vector = "c(1,2,3,4)";
@@ -37,7 +37,14 @@ public class Main {
 //		}
 	}
 
-	private static void runTrials(String wr, String wor, CardList deck, int handSize, int trialSize, int targetTotal) {
+	private static void runTrials(String wr, String wor, CardList deck, int handSize, int trialSize, int targetTotal) throws IOException {
+		FileWriter wrData = new FileWriter("wrData.csv");
+		FileWriter worData = new FileWriter("worData.csv");
+		ArrayList<String> list = new ArrayList<>();
+		list.add("Total");
+		list.add("Frequency");
+		CSVUtils.writeLine(wrData, list);
+		CSVUtils.writeLine(worData, list);
 		for (int i = 0; i < targetTotal; i++) {
 			String wReplace_Log = wr + (i + 1) + ".csv";
 			String woReplace_Log = wor + (i + 1) + ".csv";
@@ -137,7 +144,16 @@ public class Main {
 			}
 
 			System.out.println("Target total obtained with replacement: " + totalTally_with);
+			list = new ArrayList<>();
+			list.add((i + 1) + "");
+			list.add(totalTally_with + "");
+			CSVUtils.writeLine(wrData, list);
+
 			System.out.println("Target total obtained without replacement: " + totalTally_without);
+			list = new ArrayList<>();
+			list.add((i + 1) + "");
+			list.add(totalTally_without + "");
+			CSVUtils.writeLine(worData, list);
 
 			try {
 				assert writer_w != null;
@@ -151,5 +167,9 @@ public class Main {
 				e1.printStackTrace();
 			}
 		}
+		wrData.close();
+		worData.close();
 	}
+
+
 }
