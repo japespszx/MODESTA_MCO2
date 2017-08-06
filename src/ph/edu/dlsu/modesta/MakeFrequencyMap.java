@@ -7,101 +7,76 @@ import java.util.ArrayList;
 class MakeFrequencyMap {
 	public static void main(String[] args) throws IOException {
 		FileWriter w = new FileWriter("FrequencyMap.csv");
-		ArrayList<String> values = new ArrayList<>();
-		values.add("drawn");
-		values.add("total");
-		values.add("possible");
-		CSVUtils.writeLine(w, values);
+		writeToCSV("drawn", "total", "possible", w);
+		int[] draw1 = new int[14];
+		int[] draw2 = new int[27];
+		int[] draw3 = new int[40];
+		int[] draw4 = new int[53];
+		int[] draw5 = new int[66];
 
-		for (int i = 1; i <= 13; i++) {
-			values = new ArrayList<>();
-			values.add("1");
-			values.add(Integer.toString(i));
-			values.add("4");
-			CSVUtils.writeLine(w, values);
-		}
-
-		int drawn = 2;
-		int[] possible = new int[27]; //possible[0] won't be used
-		for (int i = 1; i < 14; i++) {
-			for (int j = i; j < 14; j++) {
-				for (int k = 1; k < 27; k++) {
-					if (i + j == k) {
-						if (i == j) {
-							possible[k] += 3;
-						} else {
-							possible[k] += 5;
+		for (int i = 1; i <= 5; i++) {
+			boolean toggle = false;
+			for (int j = 1; j <= 52; j++) { //1st draw
+				int drawtotal1;
+				if (j % 13 == 0)
+					drawtotal1 = 13;
+				else
+					drawtotal1 = j % 13;
+				toggle = false;
+				if (i == 1) {
+					draw1[drawtotal1]++;
+					toggle = true;
+				}
+				if (!toggle) {
+					for (int k = j + 1; k <= 52; k++) { //2nd draw
+						int drawtotal2 = drawtotal1;
+						if (k % 13 == 0)
+							drawtotal2 += 13;
+						else
+							drawtotal2 += k % 13;
+						toggle = false;
+						if (i == 2) {
+							draw2[drawtotal2]++;
+							toggle = true;
 						}
-					}
-				}
-			}
-		}
-
-		for (int i = 1; i < 27; i++) {
-			values = new ArrayList<>();
-			values.add(Integer.toString(drawn));
-			values.add(Integer.toString(i));
-			values.add(Integer.toString(possible[i]));
-			CSVUtils.writeLine(w, values);
-		}
-
-		drawn = 3;
-		possible = new int[40]; //possible[0] won't be used
-		for (int i = 1; i <= 13; i++) {
-			for (int j = i; j <= 13; j++) {
-				for (int k = j; k <= 13; k++) {
-					for (int l = 1; l < 40; l++) {
-						if (i + j + k == l)
-							possible[l]++;
-					}
-				}
-			}
-		}
-
-		for (int i = 1; i < 40; i++) {
-			values = new ArrayList<>();
-			values.add(Integer.toString(drawn));
-			values.add(Integer.toString(i));
-			values.add(Integer.toString(possible[i]));
-			CSVUtils.writeLine(w, values);
-		}
-
-		drawn = 4;
-		possible = new int[53]; //possible[0] won't be used
-		for (int i = 1; i <= 13; i++) {
-			for (int j = i; j <= 13; j++) {
-				for (int k = j; k <= 13; k++) {
-					for (int l = k; l <= 13; l++) {
-						for (int m = 1; m < 53; m++) {
-							if (i + j + k + l == m)
-								possible[m]++;
-						}
-					}
-				}
-			}
-		}
-
-		for (int i = 1; i < 53; i++) {
-			values = new ArrayList<>();
-			values.add(Integer.toString(drawn));
-			values.add(Integer.toString(i));
-			values.add(Integer.toString(possible[i]));
-			CSVUtils.writeLine(w, values);
-		}
-
-		drawn = 5;
-		possible = new int[65]; //possible[0] won't be used
-		for (int i = 1; i <= 13; i++) {
-			for (int j = i; j <= 13; j++) {
-				for (int k = j; k <= 13; k++) {
-					for (int l = k; l <= 13; l++) {
-						for (int m = l; m <= 13; m++) {
-							for (int n = 1; n < 65; n++) {
-								if (isAllEqual(i, j, k, l, m))
-									continue;
-
-								if (i + j + k + l + m == n)
-									possible[n]++;
+						if (!toggle) {
+							for (int l = k + 1; l <= 52; l++) { //3rd draw
+								int drawtotal3 = drawtotal2;
+								if (l % 13 == 0)
+									drawtotal3 += 13;
+								else
+									drawtotal3 += l % 13;
+								toggle = false;
+								if (i == 3) {
+									draw3[drawtotal3]++;
+									toggle = true;
+								}
+								if (!toggle) {
+									for (int m = l + 1; m <= 52; m++) { //4th draw
+										int drawtotal4 = drawtotal3;
+										if (m % 13 == 0)
+											drawtotal4 += 13;
+										else
+											drawtotal4 += m % 13;
+										toggle = false;
+										if (i == 4) {
+											draw4[drawtotal4]++;
+											toggle = true;
+										}
+										if (!toggle) {
+											for (int n = m + 1; n <= 52; n++) { //5th draw
+												int drawtotal5 = drawtotal4;
+												if (!(n == j || n == k || n == l || n == m)) {
+													if (n % 13 == 0)
+														drawtotal5 += 13;
+													else
+														drawtotal5 += n % 13;
+													draw5[drawtotal5]++;
+												}
+											}
+										}
+									}
+								}
 							}
 						}
 					}
@@ -109,18 +84,51 @@ class MakeFrequencyMap {
 			}
 		}
 
-		for (int i = 1; i < 65; i++) {
-			values = new ArrayList<>();
-			values.add(Integer.toString(drawn));
-			values.add(Integer.toString(i));
-			values.add(Integer.toString(possible[i]));
-			CSVUtils.writeLine(w, values);
+		System.out.println("1 CARDS DRAWN");
+		for (int i = 1; i <= 13; i++)
+			writeToCSV(1, i, draw1[i], w);
+
+		System.out.println("2 CARDS DRAWN");
+		for (int i = 1; i <= 26; i++)
+			writeToCSV(1, i, draw2[i], w);
+
+		System.out.println("3 CARDS DRAWN");
+		for (int i = 1; i <= 39; i++)
+			writeToCSV(3, i, draw3[i], w);
+
+		System.out.println("4 CARDS DRAWN");
+		for (int i = 1; i <= 52; i++) {
+			writeToCSV(4, i, draw4[i], w);
 		}
+
+		System.out.println("5 CARDS DRAWN");
+		for (int i = 1; i <= 64; i++)
+			writeToCSV(5, i, draw5[i], w);
 
 		w.close();
 	}
 
-	private static boolean isAllEqual(int i, int j, int k, int l, int m) {
-		return i == j && j == k && k == l && l == m;
+	private static void writeToCSV(String s1, String s2, String s3, FileWriter w) {
+		ArrayList<String> values = new ArrayList<>();
+		values.add(s1);
+		values.add(s2);
+		values.add(s3);
+		try {
+			CSVUtils.writeLine(w, values);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void writeToCSV(int drawn, int i, int possible, FileWriter w) {
+		ArrayList<String> values = new ArrayList<>();
+		values.add(Integer.toString(drawn));
+		values.add(Integer.toString(i));
+		values.add(Integer.toString(possible));
+		try {
+			CSVUtils.writeLine(w, values);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
