@@ -8,100 +8,100 @@ import java.util.Random;
  */
 public class CardList {
 
-    private ArrayList<Card> cards;
+	private ArrayList<Card> cards;
 
-    public CardList() {
-        cards = new ArrayList<>();
-    }
+	public CardList() {
+		cards = new ArrayList<>();
+	}
 
-    public CardList(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
+	public CardList(ArrayList<Card> cards) {
+		this.cards = cards;
+	}
 
-    public Card addCard (Card card) {
-        cards.add(card);
+	public Card addCard(Card card) {
+		cards.add(card);
 
-        return card;
-    }
+		return card;
+	}
 
-    public Card getCard (int index) {
-        return cards.get(index);
-    }
+	public Card getCard(int index) {
+		return cards.get(index);
+	}
 
-    public Card drawCard () {
-        Random random = new Random();
+	public Card drawCard() {
+		Random random = new Random();
 
-        int x = random.nextInt(size());
+		int x = random.nextInt(size());
 
-        return cards.remove(x);
-    }
+		return cards.remove(x);
+	}
 
-    public Card drawCardAndReturn () {
-        Random random = new Random();
+	public Card drawCardAndReturn() {
+		Random random = new Random();
 
-        int x = random.nextInt(size());
+		int x = random.nextInt(size());
 
-        return getCard(x);
-    }
+		return getCard(x);
+	}
 
-    public int getTotal () {
+	public int getTotal() {
 
-        int total = 0;
+		int total = 0;
 
-        for (int i = 0; i < size(); i++) {
-            total += getCardNumber(i);
-        }
+		for (int i = 0; i < size(); i++) {
+			total += getCardNumber(i);
+		}
 
-        return total;
+		return total;
 
-    }
+	}
 
-    public int getCardNumber (int index) {
-        return cards.get(index).getNumber();
-    }
+	public int getCardNumber(int index) {
+		return cards.get(index).getNumber();
+	}
 
-    public String getCardSuit (int index) {
-        return cards.get(index).getSuit().getSuit();
-    }
+	public String getCardSuit(int index) {
+		return cards.get(index).getSuit().getSuit();
+	}
 
-    public int size () {
-        return cards.size();
-    }
+	public int size() {
+		return cards.size();
+	}
 
-    public void print () {
-        for (int i = 0; i < size(); i++) {
-            System.out.println(i + " : " + getCardSuit(i) + ", " + getCardNumber(i));
-        }
+	public void print() {
+		for (int i = 0; i < size(); i++) {
+			System.out.println(i + " : " + getCardSuit(i) + ", " + getCardNumber(i));
+		}
 
-        System.out.println("Total: " + getTotal());
-    }
+		System.out.println("Total: " + getTotal());
+	}
 
-    public void resetCards () {
-        cards = new ArrayList<>();
+	public void resetCards() {
+		cards = new ArrayList<>();
 
-        for (int i = 1; i <= Card.MAX_NUMBER; i++) {
-            Card card = new Card(Suit.CLUBS, i);
+		for (int i = 1; i <= Card.MAX_NUMBER; i++) {
+			Card card = new Card(Suit.CLUBS, i);
 
-            addCard(card);
-        }
+			addCard(card);
+		}
 
-        for (int i = 1; i <= Card.MAX_NUMBER; i++) {
-            Card card = new Card(Suit.SPADES, i);
+		for (int i = 1; i <= Card.MAX_NUMBER; i++) {
+			Card card = new Card(Suit.SPADES, i);
 
-            addCard(card);
-        }
+			addCard(card);
+		}
 
-        for (int i = 1; i <= Card.MAX_NUMBER; i++) {
-            Card card = new Card(Suit.HEARTS, i);
+		for (int i = 1; i <= Card.MAX_NUMBER; i++) {
+			Card card = new Card(Suit.HEARTS, i);
 
-            addCard(card);
-        }
+			addCard(card);
+		}
 
-        for (int i = 1; i <= Card.MAX_NUMBER; i++) {
-            Card card = new Card(Suit.DIAMONDS, i);
+		for (int i = 1; i <= Card.MAX_NUMBER; i++) {
+			Card card = new Card(Suit.DIAMONDS, i);
 
-            addCard(card);
-        }
-    }
+			addCard(card);
+		}
+	}
 
 }
