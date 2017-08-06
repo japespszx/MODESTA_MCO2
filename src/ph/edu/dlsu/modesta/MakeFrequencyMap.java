@@ -12,7 +12,7 @@ class MakeFrequencyMap {
 		int[] draw2 = new int[27];
 		int[] draw3 = new int[40];
 		int[] draw4 = new int[53];
-		int[] draw5 = new int[66];
+		int[] draw5 = new int[65];
 
 		for (int i = 1; i <= 5; i++) {
 			boolean toggle = false;
@@ -109,7 +109,7 @@ class MakeFrequencyMap {
 		draw2 = new int[27];
 		draw3 = new int[40];
 		draw4 = new int[53];
-		draw5 = new int[66];
+		draw5 = new int[65];
 
 		w = new FileWriter("FrequencyMap2.csv");
 		writeToCSV("drawn", "total", "possible", w);
@@ -166,12 +166,11 @@ class MakeFrequencyMap {
 										if (!toggle) {
 											for (int n = 1; n <= 52; n++) { //5th draw
 												int drawtotal5 = drawtotal4;
-													if (n % 13 == 0)
-														drawtotal5 += 13;
-													else
-														drawtotal5 += n % 13;
-													draw5[drawtotal5]++;
-												}
+												if (n % 13 == 0)
+													drawtotal5 += 13;
+												else
+													drawtotal5 += n % 13;
+												draw5[drawtotal5]++;
 											}
 										}
 									}
@@ -181,6 +180,7 @@ class MakeFrequencyMap {
 					}
 				}
 			}
+		}
 
 		System.out.println("1 CARDS DRAWN");
 		for (int i = 1; i <= 13; i++)
@@ -197,7 +197,7 @@ class MakeFrequencyMap {
 		System.out.println("4 CARDS DRAWN");
 		for (int i = 1; i <= 52; i++) {
 			writeToCSV(4, i, draw4[i], w);
-	}
+		}
 
 		System.out.println("5 CARDS DRAWN");
 		for (int i = 1; i <= 65; i++)
