@@ -6,31 +6,18 @@ import org.rosuda.REngine.Rserve.RserveException;
 
 import ph.edu.dlsu.modesta.R.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Main {
 
 	public static void main(String[] args) {
 		//initialize Rserve connection
 		RConnection connection = Rserve.getConnection();
 
-//		CardList deck = new CardList();
-//		CardList hand;
-//
-//		// START TRIAL
-//		for (int i = 0; i < 10000; i++) {
-//
-//			System.out.println("===== TRIAL " + (i + 1) + " =====");
-//
-//			hand = new CardList();
-//			deck.resetCards();
-//
-//			hand.addCard(deck.drawCard());
-//			hand.addCard(deck.drawCard());
-//			hand.addCard(deck.drawCard());
-//			hand.addCard(deck.drawCard());
-//			hand.addCard(deck.drawCard());
-//
-//			hand.print();
-//		}
+		CardList deck = new CardList();
+		
+		CardDrawView cardDrawView = new CardDrawView(deck);
 
 		try {
 			//Sample code
