@@ -16,11 +16,15 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		//initialize Rserve connection
-		RConnection connection = Rserve.getConnection();
 
 		CardList deck = new CardList();
 
+		int[] x = {2,2,2};
+		double[] prob = {0.5,0.25,0.125};
+
 //		CardDrawView cardDrawView = new CardDrawView(deck);
+
+		RUtils.dmultinom(x, prob);
 
 		runTrials("withR", "withoutR", deck, 5, 1000, 64);
 //		try {
