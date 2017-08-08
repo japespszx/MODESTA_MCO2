@@ -19,10 +19,10 @@ public class Main {
 
 		CardList deck = new CardList();
 
-//		CardDrawView cardDrawView = new CardDrawView(deck);
+		CardDrawView cardDrawView = new CardDrawView(deck);
 
-		generateActualProbability(1000);
-//		runTrials("withR", "withoutR", deck, 1, 1000, 13);
+//		runTrials("withR", "withoutR", deck, 5, 100000);
+
 //		try {
 //			//Sample code
 //			String vector = "c(1,2,3,4)";
@@ -37,7 +37,8 @@ public class Main {
 //		}
 	}
 
-	private static void runTrials(String wr, String wor, CardList deck, int handSize, int trialSize, int targetTotal) throws IOException {
+	private static void runTrials(String wr, String wor, CardList deck, int handSize, int trialSize) throws IOException {
+		int targetTotal = handSize * 13;
 		FileWriter wrData = new FileWriter("wrData.csv");
 		FileWriter worData = new FileWriter("worData.csv");
 		ArrayList<String> list = new ArrayList<>();
@@ -81,7 +82,7 @@ public class Main {
 
 				csvLine.add(j + "");
 
-				System.out.println("===== TRIAL " + (j + 1) + " =====");
+//				System.out.println("===== TRIAL " + (j + 1) + " =====");
 
 				CardList hand = new CardList();
 				deck.resetCards();
@@ -92,8 +93,8 @@ public class Main {
 					csvLine.add(card.getSuit().getSuit() + ":" + card.getNumber());
 				}
 
-				System.out.println("===== Without replacement =====");
-				hand.print();
+//				System.out.println("===== Without replacement =====");
+//				hand.print();
 
 				csvLine.add(hand.getTotal() + "");
 
@@ -106,8 +107,6 @@ public class Main {
 
 				try {
 					CSVUtils.writeLine(writer_wo, csvLine);
-					if (i + 1 == hand.getTotal())
-						System.out.print("");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -124,8 +123,8 @@ public class Main {
 					csvLine.add(card.getSuit().getSuit() + ":" + card.getNumber());
 				}
 
-				System.out.println("===== With replacement =====");
-				hand.print();
+//				System.out.println("===== With replacement =====");
+//				hand.print();
 
 				csvLine.add(hand.getTotal() + "");
 
@@ -169,34 +168,36 @@ public class Main {
 		}
 		wrData.close();
 		worData.close();
+
+		generateActualProbability(trialSize);
 	}
 
-	private static void generateActualProbability(double divisor) throws IOException {
+	private static void generateActualProbability(double trialSize) throws IOException {
 		CSVReader csvReader;
 		List<String[]> stringList;
 		CSVWriter csvWriter;
 
-		for (int i = 1; i <= 5; i++) {
-			csvReader = new CSVReader(new FileReader("C:\\Users\\JP\\Desktop\\Hand=" + i + "\\worData.csv"));
-			stringList = csvReader.readAll();
-			csvWriter = new CSVWriter(new FileWriter("actualWorProbability" + i + ".csv"));
-			csvWriter.writeNext(new String[]{"Total", "Probability"});
-			for (int j = 1; j < stringList.size(); j++) {
-				csvWriter.writeNext(new String[]{j + "", BigDecimal.valueOf(Double.parseDouble(stringList.get(j)[1]) / divisor) + ""});
-			}
-			csvReader.close();
-			csvWriter.close();
 
-			csvReader = new CSVReader(new FileReader("C:\\Users\\JP\\Desktop\\Hand=" + i + "\\wrData.csv"));
-			stringList = csvReader.readAll();
-			csvWriter = new CSVWriter(new FileWriter("actualWrProbability" + i + ".csv"));
-			csvWriter.writeNext(new String[]{"Total", "Probability"});
-			for (int j = 1; j < stringList.size(); j++) {
-				BigDecimal bd = BigDecimal.valueOf(Integer.parseInt(stringList.get(j)[1]) / divisor);
-				csvWriter.writeNext(new String[]{j + "",  bd + ""});
-			}
-			csvReader.close();
-			csvWriter.close();
+		csvReader = new CSVReader(new FileReader("worData.csv"));
+		stringList = csvReader.readAll();
+		csvWriter = new CSVWriter(new FileWriter("actualWorProbability.csv"));
+		csvWriter.writeNext(new String[]{"Total", "Probability"});
+		for (int j = 1; j < stringList.size(); j++) {
+			BigDecimal bd = BigDecimal.valueOf(Double.parseDouble(stringList.get(j)[1]) / trialSize);
+			csvWriter.writeNext(new String[]{j + "", bd + ""});
 		}
+		csvReader.close();
+		csvWriter.close();
+
+		csvReader = new CSVReader(new FileReader("wrData.csv"));
+		stringList = csvReader.readAll();
+		csvWriter = new CSVWriter(new FileWriter("actualWrProbability.csv"));
+		csvWriter.writeNext(new String[]{"Total", "Probability"});
+		for (int j = 1; j < stringList.size(); j++) {
+			BigDecimal bd = BigDecimal.valueOf(Double.parseDouble(stringList.get(j)[1]) / trialSize);
+			csvWriter.writeNext(new String[]{j + "", bd + ""});
+		}
+		csvReader.close();
+		csvWriter.close();
 	}
 }

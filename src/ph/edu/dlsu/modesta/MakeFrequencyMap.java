@@ -88,18 +88,17 @@ class MakeFrequencyMap {
 			}
 		}
 
-		RConnection rConnection = Rserve.getConnection();
-		double divisor1 = rConnection.eval("length(combn(52,1))").asDouble();
-		double divisor2 = rConnection.eval("length(combn(52,2))").asDouble();
-		double divisor3 = rConnection.eval("length(combn(52,3))").asDouble();
-		double divisor4 = rConnection.eval("length(combn(52,4))").asDouble();
-		double divisor5 = rConnection.eval("length(combn(52,5))").asDouble();
+		double divisor1 = combination(52, 1);
+		double divisor2 = combination(52, 2);
+		double divisor3 = combination(52, 3);
+		double divisor4 = combination(52, 4);
+		double divisor5 = combination(52, 5);
 
 		System.out.println("1 CARDS DRAWN");
 		FileWriter w = new FileWriter("fwor1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw1[i]/divisor1), w);
+			writeToCSV(i, BigDecimal.valueOf(draw1[i] / divisor1), w);
 		}
 		w.close();
 
@@ -107,7 +106,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw2[i]/divisor2), w);
+			writeToCSV(i, BigDecimal.valueOf(draw2[i] / divisor2), w);
 		}
 		w.close();
 
@@ -115,7 +114,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw3[i]/divisor3), w);
+			writeToCSV(i, BigDecimal.valueOf(draw3[i] / divisor3), w);
 		}
 		w.close();
 
@@ -123,7 +122,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw4[i]/divisor4), w);
+			writeToCSV(i, BigDecimal.valueOf(draw4[i] / divisor4), w);
 		}
 		w.close();
 
@@ -131,7 +130,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 64; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw5[i]/divisor5), w);
+			writeToCSV(i, BigDecimal.valueOf(draw5[i] / divisor5), w);
 		}
 		w.close();
 
@@ -209,17 +208,17 @@ class MakeFrequencyMap {
 			}
 		}
 
-		divisor1 = Math.pow(52,1);
-		divisor2 = Math.pow(52,2);
-		divisor3 = Math.pow(52,3);
-		divisor4 = Math.pow(52,4);
-		divisor5 = Math.pow(52,5);
+		divisor1 = Math.pow(52, 1);
+		divisor2 = Math.pow(52, 2);
+		divisor3 = Math.pow(52, 3);
+		divisor4 = Math.pow(52, 4);
+		divisor5 = Math.pow(52, 5);
 
 		System.out.println("1 CARDS DRAWN");
 		w = new FileWriter("fwr1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw1[i]/divisor1), w);
+			writeToCSV(i, BigDecimal.valueOf(draw1[i] / divisor1), w);
 		}
 		w.close();
 
@@ -227,7 +226,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw2[i]/divisor2), w);
+			writeToCSV(i, BigDecimal.valueOf(draw2[i] / divisor2), w);
 		}
 		w.close();
 
@@ -235,7 +234,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw3[i]/divisor3), w);
+			writeToCSV(i, BigDecimal.valueOf(draw3[i] / divisor3), w);
 		}
 		w.close();
 
@@ -243,7 +242,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw4[i]/divisor4), w);
+			writeToCSV(i, BigDecimal.valueOf(draw4[i] / divisor4), w);
 		}
 		w.close();
 
@@ -251,33 +250,9 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 65; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw5[i]/divisor5), w);
+			writeToCSV(i, BigDecimal.valueOf(draw5[i] / divisor5), w);
 		}
 		w.close();
-	}
-
-	private static void writeToCSV(String s1, String s2, String s3, FileWriter w) {
-		ArrayList<String> values = new ArrayList<>();
-		values.add(s1);
-		values.add(s2);
-		values.add(s3);
-		try {
-			CSVUtils.writeLine(w, values);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void writeToCSV(int drawn, int i, int possible, FileWriter w) {
-		ArrayList<String> values = new ArrayList<>();
-		values.add(Integer.toString(drawn));
-		values.add(Integer.toString(i));
-		values.add(Integer.toString(possible));
-		try {
-			CSVUtils.writeLine(w, values);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private static void writeToCSV(String s1, String s2, FileWriter w) {
@@ -300,5 +275,11 @@ class MakeFrequencyMap {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static int combination(int n, int r) throws RserveException, REXPMismatchException {
+		return Rserve.getConnection().eval("factorial(" + n +
+				")/(factorial(" + r +
+				")*factorial(" + n + "-" + r + "))").asInteger();
 	}
 }
