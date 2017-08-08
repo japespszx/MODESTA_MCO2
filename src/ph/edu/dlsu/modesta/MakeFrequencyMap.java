@@ -1,12 +1,17 @@
 package ph.edu.dlsu.modesta;
 
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.Rserve.RConnection;
+import org.rosuda.REngine.Rserve.RserveException;
+import ph.edu.dlsu.modesta.R.Rserve;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 class MakeFrequencyMap {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, RserveException, REXPMismatchException {
 		int[] draw1 = new int[14];
 		int[] draw2 = new int[27];
 		int[] draw3 = new int[40];
@@ -83,11 +88,18 @@ class MakeFrequencyMap {
 			}
 		}
 
+		RConnection rConnection = Rserve.getConnection();
+		double divisor1 = rConnection.eval("length(combn(52,1))").asDouble();
+		double divisor2 = rConnection.eval("length(combn(52,2))").asDouble();
+		double divisor3 = rConnection.eval("length(combn(52,3))").asDouble();
+		double divisor4 = rConnection.eval("length(combn(52,4))").asDouble();
+		double divisor5 = rConnection.eval("length(combn(52,5))").asDouble();
+
 		System.out.println("1 CARDS DRAWN");
 		FileWriter w = new FileWriter("fwor1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw1[i]/52.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw1[i]/divisor1), w);
 		}
 		w.close();
 
@@ -95,7 +107,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw2[i]/2652.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw2[i]/divisor2), w);
 		}
 		w.close();
 
@@ -103,7 +115,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw3[i]/66300.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw3[i]/divisor3), w);
 		}
 		w.close();
 
@@ -111,7 +123,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw4[i]/1082900.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw4[i]/divisor4), w);
 		}
 		w.close();
 
@@ -119,7 +131,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwor5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 64; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw5[i]/12994800.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw5[i]/divisor5), w);
 		}
 		w.close();
 
@@ -197,11 +209,17 @@ class MakeFrequencyMap {
 			}
 		}
 
+		divisor1 = Math.pow(52,1);
+		divisor2 = Math.pow(52,2);
+		divisor3 = Math.pow(52,3);
+		divisor4 = Math.pow(52,4);
+		divisor5 = Math.pow(52,5);
+
 		System.out.println("1 CARDS DRAWN");
 		w = new FileWriter("fwr1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw1[i]/52.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw1[i]/divisor1), w);
 		}
 		w.close();
 
@@ -209,7 +227,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw2[i]/2652.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw2[i]/divisor2), w);
 		}
 		w.close();
 
@@ -217,7 +235,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw3[i]/66300.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw3[i]/divisor3), w);
 		}
 		w.close();
 
@@ -225,7 +243,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw4[i]/1082900.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw4[i]/divisor4), w);
 		}
 		w.close();
 
@@ -233,7 +251,7 @@ class MakeFrequencyMap {
 		w = new FileWriter("fwr5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 65; i++) {
-			writeToCSV(i, BigDecimal.valueOf(draw5[i]/12994800.0), w);
+			writeToCSV(i, BigDecimal.valueOf(draw5[i]/divisor5), w);
 		}
 		w.close();
 	}

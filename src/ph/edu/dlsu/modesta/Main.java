@@ -1,16 +1,16 @@
 package ph.edu.dlsu.modesta;
 
-import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.Rserve.RConnection;
-import org.rosuda.REngine.Rserve.RserveException;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
 
-import ph.edu.dlsu.modesta.R.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -19,14 +19,10 @@ public class Main {
 
 		CardList deck = new CardList();
 
-		int[] x = {2,2,2};
-		double[] prob = {0.5,0.25,0.125};
-
 //		CardDrawView cardDrawView = new CardDrawView(deck);
 
-		RUtils.dmultinom(x, prob);
-
-		runTrials("withR", "withoutR", deck, 5, 1000, 64);
+		generateActualProbability(1000);
+//		runTrials("withR", "withoutR", deck, 1, 1000, 13);
 //		try {
 //			//Sample code
 //			String vector = "c(1,2,3,4)";
@@ -175,5 +171,32 @@ public class Main {
 		worData.close();
 	}
 
+	private static void generateActualProbability(double divisor) throws IOException {
+		CSVReader csvReader;
+		List<String[]> stringList;
+		CSVWriter csvWriter;
 
+		for (int i = 1; i <= 5; i++) {
+			csvReader = new CSVReader(new FileReader("C:\\Users\\JP\\Desktop\\Hand=" + i + "\\worData.csv"));
+			stringList = csvReader.readAll();
+			csvWriter = new CSVWriter(new FileWriter("actualWorProbability" + i + ".csv"));
+			csvWriter.writeNext(new String[]{"Total", "Probability"});
+			for (int j = 1; j < stringList.size(); j++) {
+				csvWriter.writeNext(new String[]{j + "", BigDecimal.valueOf(Double.parseDouble(stringList.get(j)[1]) / divisor) + ""});
+			}
+			csvReader.close();
+			csvWriter.close();
+
+			csvReader = new CSVReader(new FileReader("C:\\Users\\JP\\Desktop\\Hand=" + i + "\\wrData.csv"));
+			stringList = csvReader.readAll();
+			csvWriter = new CSVWriter(new FileWriter("actualWrProbability" + i + ".csv"));
+			csvWriter.writeNext(new String[]{"Total", "Probability"});
+			for (int j = 1; j < stringList.size(); j++) {
+				BigDecimal bd = BigDecimal.valueOf(Integer.parseInt(stringList.get(j)[1]) / divisor);
+				csvWriter.writeNext(new String[]{j + "",  bd + ""});
+			}
+			csvReader.close();
+			csvWriter.close();
+		}
+	}
 }

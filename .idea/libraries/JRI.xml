@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/REngine.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/Rserve.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/opencsv-3.10.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
