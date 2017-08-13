@@ -1,5 +1,7 @@
 package ph.edu.dlsu.modesta;
 
+import com.objectplanet.chart.BarChart;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -91,31 +93,31 @@ public class CardDrawView {
 
 			int totalTally_with = 0;
 			int totalTally_without = 0;
-			int[] countWr, countWor;
+			double[] countWr, countWor;
 			switch (Integer.parseInt(handSize.getSelectedItem().toString())) {
 				case 1:
-					countWr = new int[14];
-					countWor = new int[14];
+					countWr = new double[14];
+					countWor = new double[14];
 					break;
 				case 2:
-					countWr = new int[27];
-					countWor = new int[27];
+					countWr = new double[27];
+					countWor = new double[27];
 					break;
 				case 3:
-					countWr = new int[40];
-					countWor = new int[40];
+					countWr = new double[40];
+					countWor = new double[40];
 					break;
 				case 4:
-					countWr = new int[53];
-					countWor = new int[53];
+					countWr = new double[53];
+					countWor = new double[53];
 					break;
 				case 5:
-					countWr = new int[66];
-					countWor = new int[65];
+					countWr = new double[66];
+					countWor = new double[65];
 					break;
 				default:
-					countWr = new int[0];
-					countWor = new int[0];
+					countWr = new double[0];
+					countWor = new double[0];
 			}
 
 			for (int i = 0; i < Integer.parseInt(iterations.getText()); i++) {
@@ -217,6 +219,11 @@ public class CardDrawView {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+
+
+			makeHistogram(countWor, "Count without replacements");
+			makeHistogram(countWr, "Count with replacements");
+
 		});
 	}
 
@@ -255,6 +262,64 @@ public class CardDrawView {
 
 
 		innerPanel.updateUI();
+	}
+
+	public void makeHistogram(double[] list, String title){
+		double[] sampleValues = new double[list.length];
+		for(int i=0; i<list.length; i++)
+			sampleValues[i] = list[i];
+
+		String[] legendLabels = new String[list.length];
+
+		for(int i =0 ; i< legendLabels.length; i++){
+			legendLabels[i]= Double.toString(list[i]);
+		}
+
+		String[] sampleLabels = new String[list.length];
+		for(int i =0 ; i< sampleLabels.length; i++){
+			sampleLabels[i]= Integer.toString(i+1);
+		}
+
+		Color[] sampleColors = new Color[] {new Color(0x8AD0F5),new Color(0x8AB8F5),new Color(0x899BF4),new Color(0xAE89F4),new Color(0xE889F4),new Color(0xF58AC9),new Color(0xF68B9B),new Color(0xF69D8B),new Color(0xF6B58B),new Color(0xF6C78B),new Color(0xF6D88B),new Color(0xF6E88B),new Color(0xF6F68B),new Color(0xDCF58A),new Color(0x9AF58A),new Color(0x89F4D8)};
+
+		double max = getMaxProbVal(list) + 0.05;
+
+
+		BarChart chart = new BarChart();
+		chart.setSampleCount(sampleValues.length);
+		chart.setSampleValues(0, sampleValues);
+		chart.setSampleColors(sampleColors);
+		chart.setMultiColorOn(true);
+		chart.setRange(0, max);
+		chart.setFont("rangeLabelFont", new Font("Arial", Font.BOLD, 13));
+		chart.setBarWidth(1);
+		chart.setLegendLabels(legendLabels);
+		chart.setLegendOn(true);
+		chart.getBarLabels();
+		chart.setBarLabelsOn(true);
+		for(int i =0 ; i< sampleLabels.length; i++){
+			chart.setSampleLabel(i, sampleLabels[i]);
+		}
+		chart.setFont("legendFont", new Font("Arial", Font.BOLD, 10));
+		chart.setBackground(Color.white);
+		chart.setTitle(title);
+		chart.setTitleOn(true);
+
+		com.objectplanet.chart.NonFlickerPanel p = new com.objectplanet.chart.NonFlickerPanel(new BorderLayout());
+		p.add("Center", chart);
+		Frame f = new Frame();
+		f.add("Center", p);
+		f.setSize(450,320);
+		f.setVisible(true);
+	}
+
+	public double getMaxProbVal(double[] list){
+		double max = 0;
+		for(int i=0; i<list.length; i++){
+			if(list[i] > max)
+				max = list[i];
+		}
+		return max;
 	}
 
 }
