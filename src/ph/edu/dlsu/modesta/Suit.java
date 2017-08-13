@@ -5,19 +5,19 @@ package ph.edu.dlsu.modesta;
  */
 public enum Suit {
 
-    CLUBS ("CLUBS"),
-    SPADES ("SPADES"),
-    HEARTS ("HEARTS"),
-    DIAMONDS ("DIAMONDS");
+	CLUBS("CLUBS"),
+	SPADES("SPADES"),
+	HEARTS("HEARTS"),
+	DIAMONDS("DIAMONDS");
 
-    private String name;
+	private String name;
 
-    Suit(String name) {
-        this.name = name;
-    }
+	Suit(String name) {
+		this.name = name;
+	}
 
-    public String getSuit () {
-        return this.name;
-    }
+	public String getSuit() {
+		return this.name;
+	}
 
 }

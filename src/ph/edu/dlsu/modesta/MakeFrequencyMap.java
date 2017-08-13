@@ -1,7 +1,6 @@
 package ph.edu.dlsu.modesta;
 
 import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import ph.edu.dlsu.modesta.R.Rserve;
 
@@ -19,7 +18,7 @@ class MakeFrequencyMap {
 		int[] draw5 = new int[65];
 
 		for (int i = 1; i <= 5; i++) {
-			boolean toggle = false;
+			boolean toggle;
 			for (int j = 1; j <= 52; j++) { //1st draw
 				int drawtotal1;
 				if (j % 13 == 0)
@@ -141,7 +140,7 @@ class MakeFrequencyMap {
 		draw5 = new int[66];
 
 		for (int i = 1; i <= 5; i++) {
-			boolean toggle = false;
+			boolean toggle;
 			for (int j = 1; j <= 52; j++) { //1st draw
 				int drawtotal1;
 				if (j % 13 == 0)

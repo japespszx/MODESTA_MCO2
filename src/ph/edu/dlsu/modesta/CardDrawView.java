@@ -4,12 +4,10 @@ import com.objectplanet.chart.BarChart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by patricktobias on 05/08/2017.
@@ -231,9 +229,9 @@ public class CardDrawView {
 		DRAWButton.addActionListener(actionListener);
 	}
 
-	private ImageIcon optimizeSize (ImageIcon imageIcon) {
+	private ImageIcon optimizeSize(ImageIcon imageIcon) {
 		Image imageObject = imageIcon.getImage(); // transform it
-		Image newimg = imageObject.getScaledInstance(126, 183,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		Image newimg = imageObject.getScaledInstance(126, 183, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 
 		return new ImageIcon(newimg);
 	}
@@ -264,23 +262,23 @@ public class CardDrawView {
 		innerPanel.updateUI();
 	}
 
-	public void makeHistogram(double[] list, String title){
+	public void makeHistogram(double[] list, String title) {
 		double[] sampleValues = new double[list.length];
-		for(int i=0; i<list.length; i++)
+		for (int i = 0; i < list.length; i++)
 			sampleValues[i] = list[i];
 
 		String[] legendLabels = new String[list.length];
 
-		for(int i =0 ; i< legendLabels.length; i++){
-			legendLabels[i]= Double.toString(list[i]);
+		for (int i = 0; i < legendLabels.length; i++) {
+			legendLabels[i] = Double.toString(list[i]);
 		}
 
 		String[] sampleLabels = new String[list.length];
-		for(int i =0 ; i< sampleLabels.length; i++){
-			sampleLabels[i]= Integer.toString(i+1);
+		for (int i = 0; i < sampleLabels.length; i++) {
+			sampleLabels[i] = Integer.toString(i + 1);
 		}
 
-		Color[] sampleColors = new Color[] {new Color(0x8AD0F5),new Color(0x8AB8F5),new Color(0x899BF4),new Color(0xAE89F4),new Color(0xE889F4),new Color(0xF58AC9),new Color(0xF68B9B),new Color(0xF69D8B),new Color(0xF6B58B),new Color(0xF6C78B),new Color(0xF6D88B),new Color(0xF6E88B),new Color(0xF6F68B),new Color(0xDCF58A),new Color(0x9AF58A),new Color(0x89F4D8)};
+		Color[] sampleColors = new Color[]{new Color(0x8AD0F5), new Color(0x8AB8F5), new Color(0x899BF4), new Color(0xAE89F4), new Color(0xE889F4), new Color(0xF58AC9), new Color(0xF68B9B), new Color(0xF69D8B), new Color(0xF6B58B), new Color(0xF6C78B), new Color(0xF6D88B), new Color(0xF6E88B), new Color(0xF6F68B), new Color(0xDCF58A), new Color(0x9AF58A), new Color(0x89F4D8)};
 
 		double max = getMaxProbVal(list) + 0.05;
 
@@ -297,7 +295,7 @@ public class CardDrawView {
 		chart.setLegendOn(true);
 		chart.getBarLabels();
 		chart.setBarLabelsOn(true);
-		for(int i =0 ; i< sampleLabels.length; i++){
+		for (int i = 0; i < sampleLabels.length; i++) {
 			chart.setSampleLabel(i, sampleLabels[i]);
 		}
 		chart.setFont("legendFont", new Font("Arial", Font.BOLD, 10));
@@ -309,14 +307,14 @@ public class CardDrawView {
 		p.add("Center", chart);
 		Frame f = new Frame();
 		f.add("Center", p);
-		f.setSize(450,320);
+		f.setSize(450, 320);
 		f.setVisible(true);
 	}
 
-	public double getMaxProbVal(double[] list){
+	public double getMaxProbVal(double[] list) {
 		double max = 0;
-		for(int i=0; i<list.length; i++){
-			if(list[i] > max)
+		for (int i = 0; i < list.length; i++) {
+			if (list[i] > max)
 				max = list[i];
 		}
 		return max;

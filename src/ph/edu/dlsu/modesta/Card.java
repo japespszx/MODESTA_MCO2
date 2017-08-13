@@ -5,29 +5,29 @@ package ph.edu.dlsu.modesta;
  */
 public class Card {
 
-    public static final int MAX_NUMBER = 13;
+	public static final int MAX_NUMBER = 13;
 
-    private Suit suit;
-    private int number;
+	private Suit suit;
+	private int number;
 
-    public Card(Suit suit, int number) {
-        this.suit = suit;
-        this.number = number;
-    }
+	public Card(Suit suit, int number) {
+		this.suit = suit;
+		this.number = number;
+	}
 
-    public Suit getSuit() {
-        return suit;
-    }
+	public Suit getSuit() {
+		return suit;
+	}
 
-    public void setSuit(Suit suit) {
-        this.suit = suit;
-    }
+	public void setSuit(Suit suit) {
+		this.suit = suit;
+	}
 
-    public int getNumber() {
-        return number;
-    }
+	public int getNumber() {
+		return number;
+	}
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+	public void setNumber(int number) {
+		this.number = number;
+	}
 }
