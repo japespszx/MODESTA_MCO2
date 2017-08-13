@@ -16,8 +16,6 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		//initialize Rserve connection
 
-		System.out.println(RUtils.dbinom(1, 2, 0.5));
-
 		CardList deck = new CardList();
 
 		CardDrawView cardDrawView = new CardDrawView(deck);

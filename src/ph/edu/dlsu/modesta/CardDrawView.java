@@ -132,8 +132,6 @@ public class CardDrawView {
 
 				csvLine.add(i + "");
 
-				System.out.println("===== TRIAL " + (i + 1) + " =====");
-
 				CardList hand = new CardList();
 				deck.resetCards();
 
@@ -371,9 +369,6 @@ public class CardDrawView {
 
 			String card_filename = cards.get(j).getSuit().getSuit() + "-" + cards.get(j).getNumber() + ".PNG";
 
-			System.out.println(card_filename);
-			System.out.println("=======");
-
 			JLabel label = new JLabel(optimizeSize(
 					new ImageIcon(getClass().getResource(
 							prefix_images + cards.get(j).getSuit().getSuit() + "/" + card_filename
@@ -431,10 +426,12 @@ public class CardDrawView {
 
 		com.objectplanet.chart.NonFlickerPanel p = new com.objectplanet.chart.NonFlickerPanel(new BorderLayout());
 		p.add("Center", chart);
-		Frame f = new Frame();
+		JFrame f = new JFrame();
 		f.add("Center", p);
 		f.setSize(450, 320);
 		f.setVisible(true);
+
+		f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
 	public double getMaxProbVal(double[] list) {
