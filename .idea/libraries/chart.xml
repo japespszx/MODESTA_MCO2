@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="chart">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/chart.ext.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/chart.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/chartServer.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
