@@ -23,7 +23,7 @@ public class RUtils {
         try {
             rserve.eval(s);
             result = rserve.eval("result").asDouble();
-            System.out.println(result);
+            //System.out.println(result);
         } catch (RserveException | REXPMismatchException e) {
             e.printStackTrace();
         }
@@ -58,12 +58,12 @@ public class RUtils {
 
         input = input.concat(")");
 
-        System.out.println(input);
+        //System.out.println(input);
 
         try {
 			rserve.eval("result=dmultinom(" + input + ")");
 			result = rserve.eval("result").asDouble();
-			System.out.println(result);
+			//System.out.println(result);
 		} catch (RserveException | REXPMismatchException e) {
 			e.printStackTrace();
 		} finally {

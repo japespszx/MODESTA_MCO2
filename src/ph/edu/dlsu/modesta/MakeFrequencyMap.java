@@ -93,7 +93,7 @@ class MakeFrequencyMap {
 		double divisor4 = combination(52, 4);
 		double divisor5 = combination(52, 5);
 
-		System.out.println("1 CARDS DRAWN");
+		//System.out.println("1 CARDS DRAWN");
 		FileWriter w = new FileWriter("fwor1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
@@ -101,7 +101,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("2 CARDS DRAWN");
+		//System.out.println("2 CARDS DRAWN");
 		w = new FileWriter("fwor2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
@@ -109,7 +109,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("3 CARDS DRAWN");
+		//System.out.println("3 CARDS DRAWN");
 		w = new FileWriter("fwor3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
@@ -117,7 +117,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("4 CARDS DRAWN");
+		//System.out.println("4 CARDS DRAWN");
 		w = new FileWriter("fwor4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
@@ -125,7 +125,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("5 CARDS DRAWN");
+		//System.out.println("5 CARDS DRAWN");
 		w = new FileWriter("fwor5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 64; i++) {
@@ -213,7 +213,7 @@ class MakeFrequencyMap {
 		divisor4 = Math.pow(52, 4);
 		divisor5 = Math.pow(52, 5);
 
-		System.out.println("1 CARDS DRAWN");
+		//System.out.println("1 CARDS DRAWN");
 		w = new FileWriter("fwr1.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 13; i++) {
@@ -221,7 +221,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("2 CARDS DRAWN");
+		//System.out.println("2 CARDS DRAWN");
 		w = new FileWriter("fwr2.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 26; i++) {
@@ -229,7 +229,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("3 CARDS DRAWN");
+		//System.out.println("3 CARDS DRAWN");
 		w = new FileWriter("fwr3.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 39; i++) {
@@ -237,7 +237,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("4 CARDS DRAWN");
+		//System.out.println("4 CARDS DRAWN");
 		w = new FileWriter("fwr4.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 52; i++) {
@@ -245,7 +245,7 @@ class MakeFrequencyMap {
 		}
 		w.close();
 
-		System.out.println("5 CARDS DRAWN");
+		//System.out.println("5 CARDS DRAWN");
 		w = new FileWriter("fwr5.csv");
 		writeToCSV("Total", "Possible", w);
 		for (int i = 1; i <= 65; i++) {

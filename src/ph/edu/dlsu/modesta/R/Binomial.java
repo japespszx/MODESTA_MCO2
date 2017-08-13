@@ -13,7 +13,7 @@ public class Binomial {
 			val = connection.
 					eval("dbinom(" + x + "," + size + "," + prob + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -27,7 +27,7 @@ public class Binomial {
 			val = connection.
 					eval("pbinom(" + q + "," + size + "," + prob + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Binomial {
 			val = connection.
 					eval("qbinom(" + p + "," + size + "," + prob + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class Binomial {
 			val = connection.
 					eval("rbinom(" + n + "," + size + "," + prob + ")").
 					asDoubles();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}

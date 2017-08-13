@@ -68,13 +68,13 @@ public class CardList {
 		return cards.size();
 	}
 
-	public void print() {
+	/*public void print() {
 		for (int i = 0; i < size(); i++) {
 			System.out.println(i + " : " + getCardSuit(i) + ", " + getCardNumber(i));
 		}
 
 		System.out.println("Total: " + getTotal());
-	}
+	}*/
 
 	public void resetCards() {
 		cards = new ArrayList<>();

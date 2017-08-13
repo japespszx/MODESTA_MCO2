@@ -13,7 +13,7 @@ public class Hypergeometric {
 			val = connection.
 					eval("dhyper(" + x + "," + m + "," + n + "," + k + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -27,7 +27,7 @@ public class Hypergeometric {
 			val = connection.
 					eval("phyper(" + q + "," + m + "," + n + "," + k + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Hypergeometric {
 			val = connection.
 					eval("qhyper(" + p + "," + m + "," + n + "," + k + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class Hypergeometric {
 			val = connection.
 					eval("rhyper(" + nn + "," + m + "," + n + "," + k + ")").
 					asDoubles();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}

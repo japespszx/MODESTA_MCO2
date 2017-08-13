@@ -140,13 +140,13 @@ public class Main {
 				}
 			}
 
-			System.out.println("Target total obtained with replacement: " + totalTally_with);
+			//System.out.println("Target total obtained with replacement: " + totalTally_with);
 			list = new ArrayList<>();
 			list.add((i + 1) + "");
 			list.add(totalTally_with + "");
 			CSVUtils.writeLine(wrData, list);
 
-			System.out.println("Target total obtained without replacement: " + totalTally_without);
+			//System.out.println("Target total obtained without replacement: " + totalTally_without);
 			list = new ArrayList<>();
 			list.add((i + 1) + "");
 			list.add(totalTally_without + "");

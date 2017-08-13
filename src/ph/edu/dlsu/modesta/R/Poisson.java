@@ -13,7 +13,7 @@ public class Poisson {
 			val = connection.
 					eval("dpois(" + x + "," + lambda + "," + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -27,7 +27,7 @@ public class Poisson {
 			val = connection.
 					eval("ppois(" + q + "," + lambda + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Poisson {
 			val = connection.
 					eval("qpois(" + p + "," + lambda + ")").
 					asDouble();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +55,7 @@ public class Poisson {
 			val = connection.
 					eval("rpois(" + n + "," + lambda + ")").
 					asDoubles();
-			System.out.println();
+			//System.out.println();
 		} catch (REXPMismatchException | RserveException e) {
 			e.printStackTrace();
 		}
