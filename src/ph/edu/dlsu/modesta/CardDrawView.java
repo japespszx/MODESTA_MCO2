@@ -18,6 +18,8 @@ public class CardDrawView {
 	private JTextField targetTotal;
 	private JTextField iterations;
 	private JButton DRAWButton;
+	private JScrollPane scrollPane;
+	private JPanel innerPanel;
 	private JLabel card1;
 	private JLabel card2;
 	private JLabel card3;
@@ -49,31 +51,16 @@ public class CardDrawView {
 		handSize.addItem("4");
 		handSize.addItem("5");
 
-		cardsDisplay = new ArrayList<>();
+		innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
-		ImageIcon image = new ImageIcon(getClass().getResource(prefix_images + "others/Back.PNG"));
-
-		cardsDisplay.add(card5);
-		cardsDisplay.add(card4);
-		cardsDisplay.add(card3);
-		cardsDisplay.add(card2);
-		cardsDisplay.add(card1);
-
-		card1.setIcon(optimizeSize(image));
-		card2.setIcon(optimizeSize(image));
-		card3.setIcon(optimizeSize(image));
-		card4.setIcon(optimizeSize(image));
-		card5.setIcon(optimizeSize(image));
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		frame.repaint();
 
 		addListenerToDrawBtn(e -> {
 
-			card1.setIcon(optimizeSize(image));
-			card2.setIcon(optimizeSize(image));
-			card3.setIcon(optimizeSize(image));
-			card4.setIcon(optimizeSize(image));
-			card5.setIcon(optimizeSize(image));
+			innerPanel.removeAll();
 
 			String wReplace_Log = "wReplace_log.csv";
 			String woReplace_Log = "withoutReplace_log.csv";
@@ -105,8 +92,6 @@ public class CardDrawView {
 			int totalTally_with = 0;
 			int totalTally_without = 0;
 
-			String card_filename;
-
 			for (int i = 0; i < Integer.parseInt(iterations.getText()); i++) {
 
 				csvLine = new ArrayList<>();
@@ -118,18 +103,17 @@ public class CardDrawView {
 				CardList hand = new CardList();
 				deck.resetCards();
 
+				ArrayList<Card> without_replacement_cards = new ArrayList<>();
+
 				for (int j = 0; j < (Integer.parseInt((String) handSize.getSelectedItem())); j++) {
 					Card card = hand.addCard(deck.drawCard());
 
-					card_filename = card.getSuit().getSuit() + "-" + card.getNumber() + ".PNG";
-
-					cardsDisplay.get(j).setIcon(optimizeSize(
-							new ImageIcon(getClass().getResource(
-									prefix_images + card.getSuit().getSuit() + "/" + card_filename
-							))));
+					without_replacement_cards.add(card);
 
 					csvLine.add(card.getSuit().getSuit() + ":" + card.getNumber());
 				}
+
+				addCards(without_replacement_cards);
 
 				System.out.println("===== Without replacement =====");
 				hand.print();
@@ -155,18 +139,17 @@ public class CardDrawView {
 
 				hand = new CardList();
 
+				ArrayList<Card> with_replacement_cards = new ArrayList<>();
+
 				for (int j = 0; j < (Integer.parseInt((String) handSize.getSelectedItem())); j++) {
 					Card card = hand.addCard(deck.drawCardAndReturn());
 
-					card_filename = card.getSuit().getSuit() + "-" + card.getNumber() + ".PNG";
-
-					cardsDisplay.get(j).setIcon(optimizeSize(
-							new ImageIcon(getClass().getResource(
-									prefix_images + card.getSuit().getSuit() + "/" + card_filename
-							))));
+					with_replacement_cards.add(card);
 
 					csvLine.add(card.getSuit().getSuit() + ":" + card.getNumber());
 				}
+
+				addCards(with_replacement_cards);
 
 				System.out.println("===== With replacement =====");
 				hand.print();
@@ -214,4 +197,31 @@ public class CardDrawView {
 
 		return new ImageIcon(newimg);
 	}
+
+	public void addCards(ArrayList<Card> cards) {
+
+		JPanel p = new JPanel();
+		p.setLayout(new FlowLayout());
+
+		for (int j = 0; j < cards.size(); j++) {
+
+			String card_filename = cards.get(j).getSuit().getSuit() + "-" + cards.get(j).getNumber() + ".PNG";
+
+			System.out.println(card_filename);
+			System.out.println("=======");
+
+			JLabel label = new JLabel(optimizeSize(
+					new ImageIcon(getClass().getResource(
+							prefix_images + cards.get(j).getSuit().getSuit() + "/" + card_filename
+					))));
+
+			p.add(label);
+		}
+
+		innerPanel.add(p);
+
+
+		innerPanel.updateUI();
+	}
+
 }
