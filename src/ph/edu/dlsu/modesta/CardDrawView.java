@@ -1,6 +1,8 @@
 package ph.edu.dlsu.modesta;
 
 import com.objectplanet.chart.BarChart;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.Rserve.RserveException;
 import ph.edu.dlsu.modesta.R.RUtils;
 
 import javax.swing.*;
@@ -8,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -65,6 +68,7 @@ public class CardDrawView {
 
 			String wReplace_Log = "wReplace_log.csv";
 			String woReplace_Log = "withoutReplace_log.csv";
+
 			FileWriter writer_w = null;
 			FileWriter writer_wo = null;
 
@@ -72,8 +76,11 @@ public class CardDrawView {
 
 			csvLine.add("Trial Number");
 
+			int currentHandSize = Integer.parseInt((String) handSize.getSelectedItem());
+			int currentIterations = Integer.parseInt(iterations.getText());
+
 			assert handSize.getSelectedItem() != null;
-			for (int j = 0; j < (Integer.parseInt((String) handSize.getSelectedItem())); j++) {
+			for (int j = 0; j < currentHandSize; j++) {
 				csvLine.add("Card" + (j + 1));
 			}
 
@@ -93,7 +100,7 @@ public class CardDrawView {
 			int totalTally_with = 0;
 			int totalTally_without = 0;
 			double[] countWr, countWor;
-			switch (Integer.parseInt(handSize.getSelectedItem().toString())) {
+			switch (currentHandSize) {
 				case 1:
 					countWr = new double[14];
 					countWor = new double[14];
@@ -119,7 +126,7 @@ public class CardDrawView {
 					countWor = new double[0];
 			}
 
-			for (int i = 0; i < Integer.parseInt(iterations.getText()); i++) {
+			for (int i = 0; i < currentIterations; i++) {
 
 				csvLine = new ArrayList<>();
 
@@ -141,9 +148,6 @@ public class CardDrawView {
 				}
 
 				addCards(without_replacement_cards);
-
-				System.out.println("===== Without replacement =====");
-				hand.print();
 
 
 				csvLine.add(hand.getTotal() + "");
@@ -182,9 +186,6 @@ public class CardDrawView {
 
 				addCards(with_replacement_cards);
 
-				System.out.println("===== With replacement =====");
-				hand.print();
-
 				csvLine.add(hand.getTotal() + "");
 
 				// count each total
@@ -219,9 +220,133 @@ public class CardDrawView {
 				e1.printStackTrace();
 			}
 
-
 			makeHistogram(countWor, "Count without replacements");
 			makeHistogram(countWr, "Count with replacements");
+
+			String binomActualWr_Log = "wReplace_binom_log.csv";
+			String binomActualWor_Log = "withoutReplace_binom_log.csv";
+
+			String nbinomActualWr_Log = "wReplace_nbinom_log.csv";
+			String nbinomActualWor_Log = "withoutReplace_nbinom_log.csv";
+
+			FileWriter binomWr_writer = null;
+			FileWriter binomWor_writer= null;
+			FileWriter nbinomWr_writer = null;
+			FileWriter nbinomWor_writer = null;
+
+			try {
+				binomWr_writer = new FileWriter(binomActualWr_Log);
+				binomWor_writer = new FileWriter(binomActualWor_Log);
+				nbinomWr_writer = new FileWriter(nbinomActualWr_Log);
+				nbinomWor_writer = new FileWriter(nbinomActualWor_Log);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+
+			BigDecimal[] idealProbWR = new BigDecimal[1];
+			BigDecimal[] idealProbWoR = new BigDecimal[1];
+
+			try {
+				idealProbWR = IdealProbabilities.get(true, currentHandSize);
+				idealProbWoR = IdealProbabilities.get(false, currentHandSize);
+			} catch (REXPMismatchException e1) {
+				e1.printStackTrace();
+			} catch (RserveException e1) {
+				e1.printStackTrace();
+			}
+
+			csvLine = new ArrayList<String>();
+
+			csvLine.add("Total");
+			csvLine.add("Binomial_Prob");
+
+			try {
+				CSVUtils.writeLine(binomWr_writer, csvLine);
+				CSVUtils.writeLine(binomWor_writer, csvLine);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+			csvLine.remove(1);
+			csvLine.add("N_Binomial_Prob");
+
+			try {
+				CSVUtils.writeLine(binomWr_writer, csvLine);
+				CSVUtils.writeLine(binomWor_writer, csvLine);
+			} catch (IOException e1) {
+
+			}
+
+			for (int x=1; x < countWor.length; x++) {
+				double binom_prob_wr = RUtils.dbinom((int)countWor[x], currentIterations, idealProbWR[x].doubleValue());
+				double binom_prob_wor = RUtils.dbinom((int)countWor[x], currentIterations, idealProbWoR[x].doubleValue());
+
+				double nbinom_prob_wr = RUtils.dnbinom((int)countWor[x], currentIterations, idealProbWR[x].doubleValue());
+				double nbinom_prob_wor = RUtils.dnbinom((int)countWor[x], currentIterations, idealProbWoR[x].doubleValue());
+
+				csvLine = new ArrayList<String>();
+
+				csvLine.add(x + "");
+				csvLine.add(Double.toString(binom_prob_wr));
+
+				try {
+					CSVUtils.writeLine(binomWr_writer, csvLine);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				csvLine = new ArrayList<String>();
+
+				csvLine.add(x + "");
+				csvLine.add(Double.toString(binom_prob_wor));
+
+				try {
+					CSVUtils.writeLine(binomWor_writer, csvLine);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				csvLine = new ArrayList<String>();
+
+				csvLine.add(x + "");
+				csvLine.add(Double.toString(nbinom_prob_wr));
+
+				try {
+					CSVUtils.writeLine(nbinomWr_writer, csvLine);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				csvLine = new ArrayList<String>();
+
+				csvLine.add(x + "");
+				csvLine.add(Double.toString(nbinom_prob_wor));
+
+				try {
+					CSVUtils.writeLine(nbinomWor_writer, csvLine);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			try {
+				assert binomWr_writer != null;
+				binomWr_writer.flush();
+				assert binomWor_writer != null;
+				binomWor_writer.flush();
+				assert nbinomWr_writer != null;
+				binomWr_writer.flush();
+				assert nbinomWor_writer != null;
+				binomWor_writer.flush();
+
+				binomWr_writer.close();
+				binomWor_writer.close();
+				nbinomWr_writer.close();
+				nbinomWor_writer.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 
 		});
 	}

@@ -2,6 +2,7 @@ package ph.edu.dlsu.modesta;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import ph.edu.dlsu.modesta.R.RUtils;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,6 +15,8 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		//initialize Rserve connection
+
+		System.out.println(RUtils.dbinom(1, 2, 0.5));
 
 		CardList deck = new CardList();
 
