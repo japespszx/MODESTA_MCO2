@@ -270,8 +270,8 @@ public class CardDrawView {
 			csvLine.add("N_Binomial_Prob");
 
 			try {
-				CSVUtils.writeLine(binomWr_writer, csvLine);
-				CSVUtils.writeLine(binomWor_writer, csvLine);
+				CSVUtils.writeLine(nbinomWr_writer, csvLine);
+				CSVUtils.writeLine(nbinomWor_writer, csvLine);
 			} catch (IOException e1) {
 
 			}
