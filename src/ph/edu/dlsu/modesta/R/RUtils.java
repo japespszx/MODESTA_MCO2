@@ -15,6 +15,27 @@ public class RUtils {
         rserve = Rserve.getConnection();
     }
 
+    public static double dbinom(int x, int size, int prob) {
+
+        double result = 0;
+        String s = "result=dbinom(";
+
+        s = s.concat(x + ",");
+        s = s.concat(size + ",");
+        s = s.concat(prob + ")");
+
+        try {
+            rserve.eval(s);
+            result = rserve.eval("result").asDouble();
+            System.out.println(result);
+        } catch (RserveException | REXPMismatchException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
     public static double dmultinom (int[] x, double[] prob) {
 
         double result = 0;

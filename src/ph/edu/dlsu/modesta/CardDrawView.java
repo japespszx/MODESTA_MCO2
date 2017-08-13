@@ -1,6 +1,7 @@
 package ph.edu.dlsu.modesta;
 
 import com.objectplanet.chart.BarChart;
+import ph.edu.dlsu.modesta.R.RUtils;
 
 import javax.swing.*;
 import java.awt.*;
