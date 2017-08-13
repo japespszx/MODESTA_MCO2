@@ -11,10 +11,6 @@ public class RUtils {
 
     private static RConnection rserve = Rserve.getConnection();
 
-    public RUtils() {
-        rserve = Rserve.getConnection();
-    }
-
     public static double dbinom(int x, int size, int prob) {
 
         double result = 0;
