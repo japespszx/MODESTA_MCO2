@@ -104,6 +104,32 @@ public class CardDrawView {
 
 			int totalTally_with = 0;
 			int totalTally_without = 0;
+			int[] countWr, countWor;
+			switch (Integer.parseInt(handSize.getSelectedItem().toString())) {
+				case 1:
+					countWr = new int[14];
+					countWor = new int[14];
+					break;
+				case 2:
+					countWr = new int[27];
+					countWor = new int[27];
+					break;
+				case 3:
+					countWr = new int[40];
+					countWor = new int[40];
+					break;
+				case 4:
+					countWr = new int[53];
+					countWor = new int[53];
+					break;
+				case 5:
+					countWr = new int[66];
+					countWor = new int[65];
+					break;
+				default:
+					countWr = new int[0];
+					countWor = new int[0];
+			}
 
 			String card_filename;
 
@@ -134,7 +160,11 @@ public class CardDrawView {
 				System.out.println("===== Without replacement =====");
 				hand.print();
 
+
 				csvLine.add(hand.getTotal() + "");
+
+				// count each total
+				countWor[hand.getTotal()]++;
 
 				if (Integer.parseInt(targetTotal.getText()) == hand.getTotal()) {
 					totalTally_without++;
@@ -172,6 +202,9 @@ public class CardDrawView {
 				hand.print();
 
 				csvLine.add(hand.getTotal() + "");
+
+				// count each total
+				countWr[hand.getTotal()]++;
 
 				if (Integer.parseInt(targetTotal.getText()) == hand.getTotal()) {
 					totalTally_with++;

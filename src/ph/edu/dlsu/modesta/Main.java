@@ -178,7 +178,7 @@ public class Main {
 		CSVWriter csvWriter;
 
 
-		csvReader = new CSVReader(new FileReader("worData.csv"));
+		csvReader = new CSVReader(new FileReader("C:\\Users\\JP\\Desktop\\Trial1000\\Hand=1\\worD"));
 		stringList = csvReader.readAll();
 		csvWriter = new CSVWriter(new FileWriter("actualWorProbability.csv"));
 		csvWriter.writeNext(new String[]{"Total", "Probability"});
