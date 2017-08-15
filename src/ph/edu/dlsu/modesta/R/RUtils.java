@@ -53,6 +53,28 @@ public class RUtils {
 
     }
 
+    public static double dhyper(int x, int m, int n, int k) {
+
+        double result = 0;
+        String s = "result=dhyper(";
+
+        s = s.concat(x+",");
+        s = s.concat(m+",");
+        s = s.concat(n+",");
+        s = s.concat(k+")");
+
+        try {
+            rserve.eval(s);
+            result = rserve.eval("result").asDouble();
+            //System.out.println(result);
+        } catch (RserveException | REXPMismatchException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
     public static double dmultinom (int[] x, double[] prob) {
 
         double result = 0;

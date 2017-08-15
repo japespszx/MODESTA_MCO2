@@ -1,6 +1,7 @@
 package ph.edu.dlsu.modesta;
 
 import com.objectplanet.chart.BarChart;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RserveException;
 import ph.edu.dlsu.modesta.R.RUtils;
@@ -276,12 +277,27 @@ public class CardDrawView {
 
 			}
 
+			double[] binom_with = new double[countWr.length];
+			double[] nbinom_with = new double[countWr.length];
+
+			double[] binom_without = new double[countWor.length];
+			double[] nbinom_without = new double[countWor.length];
+
+			double[] hyper_with = new double[countWr.length];
+			double[] hyper_without = new double[countWor.length];
+
 			for (int x=1; x < countWor.length; x++) {
 				double binom_prob_wr = RUtils.dbinom((int)countWor[x], currentIterations, idealProbWR[x].doubleValue());
 				double binom_prob_wor = RUtils.dbinom((int)countWor[x], currentIterations, idealProbWoR[x].doubleValue());
 
 				double nbinom_prob_wr = RUtils.dnbinom((int)countWor[x], currentIterations, idealProbWR[x].doubleValue());
 				double nbinom_prob_wor = RUtils.dnbinom((int)countWor[x], currentIterations, idealProbWoR[x].doubleValue());
+
+				binom_with[x] = binom_prob_wr;
+				nbinom_with[x] = nbinom_prob_wr;
+
+				binom_without[x] = binom_prob_wor;
+				nbinom_without[x] = nbinom_prob_wor;
 
 				csvLine = new ArrayList<String>();
 
@@ -326,7 +342,53 @@ public class CardDrawView {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+
+				int[] WR_Freq = IdealProbabilities.getFrequencies(true, currentHandSize);
+				int[] WOR_Freq = IdealProbabilities.getFrequencies(false, currentHandSize);
+
+				int total_WR = IdealProbabilities.getTotals(true, currentHandSize);
+				int total_WOR = IdealProbabilities.getTotals(false, currentHandSize);
+
+				hyper_with[x] = RUtils.dhyper((int)countWr[x], WR_Freq[x], total_WR-WR_Freq[x], currentIterations);
+				hyper_without[x] = RUtils.dhyper((int)countWor[x], WOR_Freq[x], total_WOR-WOR_Freq[x], currentIterations);
+
+				System.out.println(x);
+
+				System.out.println("=== With Replacement ===");
+				System.out.println("m = " + WR_Freq[x]);
+				System.out.println("n = " + (total_WR - WR_Freq[x]));
+				System.out.println("total = " + total_WR);
+				System.out.println("=== Without Replacement ===");
+				System.out.println("m = " + WOR_Freq[x]);
+				System.out.println("n = " + (total_WOR - WOR_Freq[x]));
+				System.out.println("total = " + total_WOR);
+
+				System.out.println("=============");
+
 			}
+
+			makeHistogram(binom_with, "Binomial With Replacement");
+			makeHistogram(nbinom_with, "Negative Binomial With Replacement");
+
+			makeHistogram(binom_without, "Binomial Without Replacement");
+			makeHistogram(nbinom_without, "Negative Binomial Without Replacement");
+
+			makeHistogram(hyper_with, "HyperGeom With Replacement");
+			makeHistogram(hyper_without, "HyperGeom Without Replacement");
+
+			double[] ideal_trans_WR = new double[idealProbWR.length];
+			double[] ideal_trans_WOR = new double[idealProbWoR.length];
+
+			for (int z = 1; z < idealProbWR.length; z++) {
+				ideal_trans_WR[z] = idealProbWR[z].doubleValue();
+			}
+
+			for (int z = 1; z < idealProbWoR.length; z++) {
+				ideal_trans_WOR[z] = idealProbWoR[z].doubleValue();
+			}
+
+			makeHistogram(ideal_trans_WR, "Ideal Probability With Replacement");
+			makeHistogram(ideal_trans_WOR, "Ideal Probability Without Replacement");
 
 			try {
 				assert binomWr_writer != null;
@@ -396,7 +458,7 @@ public class CardDrawView {
 
 		String[] sampleLabels = new String[list.length];
 		for (int i = 0; i < sampleLabels.length; i++) {
-			sampleLabels[i] = Integer.toString(i + 1);
+			sampleLabels[i] = Integer.toString(i);
 		}
 
 		Color[] sampleColors = new Color[]{new Color(0x8AD0F5), new Color(0x8AB8F5), new Color(0x899BF4), new Color(0xAE89F4), new Color(0xE889F4), new Color(0xF58AC9), new Color(0xF68B9B), new Color(0xF69D8B), new Color(0xF6B58B), new Color(0xF6C78B), new Color(0xF6D88B), new Color(0xF6E88B), new Color(0xF6F68B), new Color(0xDCF58A), new Color(0x9AF58A), new Color(0x89F4D8)};
